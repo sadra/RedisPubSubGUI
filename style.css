@@ -1,0 +1,97 @@
+html,
+body,
+.container-fluid,
+.container {
+  background-color: #ffffff;
+  padding: 12px;
+  height: 100%;
+}
+
+.text-input {
+  font-size: 16px;
+}
+
+.row {
+  height: 95% !important;
+}
+
+.col-6 {
+  height: 95% !important;
+}
+
+#scrollAreaFirst,
+#scrollAreaSecond {
+  font-size: 12px;
+}
+
+.scroller-box {
+  padding: 5px 5px;
+  border: grey 1px solid;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  letter-spacing: 1px;
+}
+
+.btn-group,
+.btn-group-vertical {
+  vertical-align: top !important;
+}
+
+.clusterize-scroll {
+  max-height: none !important;
+  height: 95% !important;
+}
+
+.hash-output ul {
+  overflow: auto;
+  padding: 5px 20px;
+}
+
+.hash-heading {
+  color: gray;
+  font-weight: normal;
+}
+
+.counter-box {
+  padding: 5px;
+}
+
+.alert {
+  padding: 5px 10px;
+  display: inline-block !important;
+}
+
+li {
+  list-style-type: none;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-bottom: lightgrey 1px solid;
+}
+
+pre {
+  width: 90%;
+}
+
+a {
+  color: black !important;
+}
+
+.string {
+  color: green;
+}
+
+.number {
+  color: darkorange;
+}
+
+.boolean {
+  color: blue;
+}
+
+.null {
+  color: magenta;
+}
+
+.key {
+  color: red;
+}
