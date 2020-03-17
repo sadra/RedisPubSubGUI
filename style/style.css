@@ -11,16 +11,15 @@ body,
   font-size: 16px;
 }
 
-.row {
+.scrollbar-row {
   height: 95% !important;
 }
 
-.col-6 {
+.scrollbar-col {
   height: 95% !important;
 }
 
-#scrollAreaFirst,
-#scrollAreaSecond {
+#scrollArea {
   font-size: 12px;
 }
 
