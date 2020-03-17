@@ -20,7 +20,7 @@ $(document).ready(function() {
       node: true
     });
 
-    setInterval(() => {
+    setTimeout(() => {
       enav.send(tab.id, 'initial', [
         {
           id: tab.id
