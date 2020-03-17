@@ -1,37 +1,47 @@
-// 1. Require the module
-const TabGroup = require('electron-tabs');
-const bilbao = 'hi';
-
-// 2. Define the instance of the tab group (container)
-let tabGroup = new TabGroup({
-  // If you want a new button that appends a new tab, include:
-  newTab: {
-    title: `New Channel`,
-    src: './channel.html',
-    visible: true,
-    active: true,
-    webviewAttributes: {
-      nodeintegration: true
+$(document).ready(function() {
+  const enav = new (require('electron-navigation'))({
+    showBackButton: false,
+    showForwardButton: false,
+    showReloadButton: false,
+    showUrlBar: false,
+    contextMenu: true,
+    webviewAttributes: {},
+    newTabParams: () => {
+      createNewTab();
     }
-  }
-});
+  });
 
-// 4. Add a new tab that contains a local HTML file
-let tab1 = tabGroup.addTab({
-  title: 'New Channel',
-  src: './channel.html',
-  visible: true,
-  active: true,
-  // If the page needs to access Node.js modules, be sure to
-  // enable the nodeintegration
-  webviewAttributes: {
-    nodeintegration: true,
-    bilbil: 'hi'
-  }
-});
+  var tabSessionId = 1;
 
-let tab = tabGroup.addTab({
-  title: 'Electron',
-  src: 'http://electron.atom.io',
-  visible: true
+  function createNewTab() {
+    const tab = enav.newTab(`file:///${__dirname}/channel.html`, {
+      id: `tab-${tabSessionId}`,
+      title: 'New Channel',
+      node: true
+    });
+
+    setInterval(() => {
+      enav.send(tab.id, 'initial', [
+        {
+          id: tab.id
+        }
+      ]);
+    }, 1000);
+
+    enav.listen(`tab-${tabSessionId}`, (messageKey, args, respond) => {
+      var params = args[0];
+
+      if (messageKey == 'updateTitle') {
+        $(
+          '.nav-tabs-tab[data-session="' +
+            params.tabSessionId +
+            '"] .nav-tabs-title'
+        ).html(params.title);
+      }
+    });
+
+    tabSessionId++;
+  }
+
+  createNewTab();
 });

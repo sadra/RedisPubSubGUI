@@ -1,33 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
-    <!-- 
-            1. Include CSS that define the styles of the tabs.
-            You can use the default styles of the module or include your own styles.
-        -->
-    <link
-      rel="stylesheet"
-      href="node_modules/electron-tabs/electron-tabs.css"
-    />
-    <style>
-      /* As the tab needs to be in the border of the view, remove margin of the body tag */
-      body {
-        margin: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="./style/theme-template.css" />
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
   </head>
   <body>
-    <!-- 2. Include the basic markup of the tabs view -->
-    <div class="etabs-tabgroup">
-      <div class="etabs-tabs"></div>
-      <div class="etabs-buttons"></div>
-    </div>
-    <div class="etabs-views"></div>
+    <!-- <div id="nav-body-ctrls"></div> -->
+    <div id="nav-body-tabs"></div>
+    <div id="nav-body-views"></div>
 
-    <script>
-      require('./js/app.js');
-    </script>
+    <script src="./js/app.js" charset="utf-8"></script>
   </body>
 </html>
