@@ -83,3 +83,22 @@ const filters = {
 //     }
 // ]
 ```
+
+Another filter example:
+
+```javascript
+const filters = {
+    size: (size) => size === 50 || size === 70,
+    color: (color) => ['blue', 'black'].includes(color.toLowerCase()),
+    details: (details) => details.length < 30 && details.width >= 70,
+    locations: (locations) => {
+        if (locations.includes('USA')) return true; // case sensitive
+        if (locations.includes('Japan')) return true; // case sensitive
+
+        const url = window.location.pathname.toLowerCase();
+        if (url.includes('/en-us/')) return true; // not case sensitive
+        if (url.includes('/es/')) return true; // not case sensitive
+        return false;
+    }
+};
+```

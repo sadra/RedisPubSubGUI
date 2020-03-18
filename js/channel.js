@@ -120,6 +120,8 @@ $(document).ready(function() {
         $(`#channel-counter`).html(`${channelCount}`);
         $(`#channel-box`).html('');
         clusterize.clear();
+        data = [];
+        filteredData = [];
     });
 
     $('#watch-button').click(function() {
@@ -184,9 +186,7 @@ $(document).ready(function() {
         }, 500);
     });
 
-    // 2.) listen for a message from the parent (paremt-main.html)
-
-    publish();
+    // publish();
 });
 
 ipcRenderer.on('initial', (event, data) => {

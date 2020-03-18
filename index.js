@@ -24,7 +24,7 @@ app.once('ready', () => {
 
     window.loadURL(
         url.format({
-            pathname: path.join(__dirname, 'channel.html'),
+            pathname: path.join(__dirname, 'app.html'),
             protocol: 'file:',
             slashes: true
         })
