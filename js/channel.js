@@ -14,10 +14,11 @@ var channelCount = 0;
 var subscriber;
 var publisher;
 var clusterize;
-var filterIsOn = true;
+var filterIsOn = false;
 
 var data = [];
 var filteredData = [];
+var rawConditionValue = '';
 
 $(document).ready(function() {
     clusterize = new Clusterize({
@@ -148,6 +149,19 @@ $(document).ready(function() {
         }, 1000);
     });
 
+    $('#filter-button').click(function() {
+        rawConditionValue = $('#filter-box').val();
+        var filteredObj = filterData(getRowCondition(), data);
+        filteredObj = filteredObj.map((item) => {
+            return `<div><pre>${syntaxHighlight(
+                JSON.stringify(item, null, 4)
+            )}</pre></div>`;
+        });
+        clusterize.clear();
+        clusterize.append(filteredObj);
+        filterIsOn = true;
+    });
+
     // 2.) listen for a message from the parent (paremt-main.html)
 
     publish();
@@ -247,5 +261,5 @@ function isCorrectObject(object) {
 }
 
 function getRowCondition() {
-    return $('#filter-box').val();
+    return rawConditionValue;
 }
