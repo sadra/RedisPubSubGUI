@@ -19,7 +19,10 @@
     "clusterize.js": "^0.18.1",
     "electron-navigation": "^1.5.8",
     "electron-tabs": "^0.15.0",
-    "redis": "^3.0.2"
+    "node-notifier": "^6.0.0",
+    "redis": "^3.0.2",
+    "redis-ssh": "^1.0.0",
+    "ssh2": "^0.8.9"
   },
   "devDependencies": {
     "asar": "^2.0.1",
