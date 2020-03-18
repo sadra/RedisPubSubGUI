@@ -1,156 +1,222 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8" />
 
-    <title>Redis PubSub Listener</title>
+        <title>Redis PubSub Listener</title>
 
-    <!-- Stylesheets -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+        <!-- Stylesheets -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
 
-    <link rel="stylesheet" href="./style/style.css" />
-    <link rel="stylesheet" href="./style/clusterize.css" />
-    <script src="./js/clusterize.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="./style/style.css" />
+        <link rel="stylesheet" href="./style/clusterize.css" />
+        <script src="./js/clusterize.min.js" charset="utf-8"></script>
 
-    <!-- Scripts -->
-    <script>
-      delete module.exports;
-    </script>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-  </head>
+        <!-- Scripts -->
+        <script>
+            delete module.exports;
+        </script>
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad();
+        </script>
+    </head>
 
-  <body>
-    <div id="container" class="container-fluid">
-      <form>
-        <div class="form-row">
-          <div class="col">
-            <input
-              id="host-input"
-              type="text"
-              class="form-control"
-              placeholder="Default host: 127.0.0.1"
-            />
-          </div>
-          <div class="col">
-            <input
-              id="port-input"
-              type="text"
-              class="form-control"
-              placeholder="Default Port: 6379"
-            />
-          </div>
-          <div class="col">
-            <button
-              id="start-button"
-              type="button"
-              class="btn btn-success mb-2"
-            >
-              Start
-            </button>
-            <button id="stop-button" type="button" class="btn btn-danger mb-2">
-              Stop
-            </button>
-            <button
-              id="clear-button"
-              type="button"
-              class="btn btn-warning mb-2"
-            >
-              Clear
-            </button>
-
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button id="font-smaller" type="button" class="btn btn-secondary">
-                ⬇
-              </button>
-              <button id="font-bigger" type="button" class="btn btn-secondary">
-                ⬆
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-
-      <div class="row scrollbar-row">
-        <div class="col-8 scrollbar-col">
-          <div id="scrollArea" class="clusterize-scroll scroller-box">
-            <div id="contentArea" class="clusterize-content">
-              <div class="clusterize-no-data">Loading data…</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="row">
-            <div class="col">
-              <form>
+    <body>
+        <div id="container" class="container-fluid">
+            <form>
                 <div class="form-row">
-                  <div class="col">
-                    <input
-                      id="channel-input"
-                      type="text"
-                      class="form-control"
-                      placeholder="default: info"
-                    />
-                  </div>
-                  <div class="col">
-                    <div
-                      id="channel-counter"
-                      class="alert alert-secondary counter-box"
-                      role="alert"
-                    >
-                      0
+                    <div class="col">
+                        <input
+                            id="host-input"
+                            type="text"
+                            class="form-control"
+                            placeholder="Default host: 127.0.0.1"
+                        />
                     </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <button
-                id="watch-button"
-                type="button"
-                class="btn btn-success mb-2"
-              >
-                👁️
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+                    <div class="col" style="padding-right: 12px !important;">
+                        <input
+                            id="port-input"
+                            type="text"
+                            class="form-control"
+                            placeholder="Default Port: 6379"
+                        />
+                    </div>
+                    <div class="col">
+                        <button
+                            id="start-button"
+                            type="button"
+                            class="btn btn-success mb-2"
+                        >
+                            Start
+                        </button>
+                        <button
+                            id="stop-button"
+                            type="button"
+                            class="btn btn-danger mb-2"
+                        >
+                            Stop
+                        </button>
+                        <button
+                            id="clear-button"
+                            type="button"
+                            class="btn btn-warning mb-2"
+                        >
+                            Clear
+                        </button>
 
-      <br />
-      <!-- <small style="color: dimgrey; text-align: right; width: 100%;"
+                        <div
+                            class="btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                        >
+                            <button
+                                id="font-smaller"
+                                type="button"
+                                class="btn btn-secondary"
+                            >
+                                ⬇
+                            </button>
+                            <button
+                                id="font-bigger"
+                                type="button"
+                                class="btn btn-secondary"
+                            >
+                                ⬆
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row scrollbar-row">
+                <div class="col-8 scrollbar-col">
+                    <div id="scrollArea" class="clusterize-scroll scroller-box">
+                        <div id="contentArea" class="clusterize-content">
+                            <div class="clusterize-no-data">Loading data…</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4" style="padding: 0 0 0 4px;">
+                    <div class="row">
+                        <div class="col">
+                            <hr data-content="SETTINGS" class="hr-text" />
+                            <div class="row">
+                                <div class="col">
+                                    <input
+                                        id="channel-input"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="default: info"
+                                    />
+                                </div>
+                                <div class="col">
+                                    <div
+                                        id="channel-counter"
+                                        class="alert alert-secondary counter-box"
+                                        role="alert"
+                                    >
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <button
+                                id="watch-button"
+                                type="button"
+                                class="btn btn-success mb-2"
+                            >
+                                👁️
+                            </button>
+                        </div>
+                        <div class="col-10">
+                            <div class="input-group">
+                                <input
+                                    id="limit-input"
+                                    type="text"
+                                    value="500"
+                                    class="form-control"
+                                    placeholder="Recipient's username"
+                                    aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2"
+                                />
+                                <div class="input-group-append">
+                                    <button
+                                        id="decrease-limit-button"
+                                        class="btn btn-outline-secondary"
+                                        type="button"
+                                    >
+                                        -
+                                    </button>
+                                    <button
+                                        id="increase-limit-button"
+                                        class="btn btn-outline-secondary"
+                                        type="button"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr data-content="FILTER" class="hr-text" />
+                            <form>
+                                <div class="form-group">
+                                    <textarea
+                                        class="form-control"
+                                        id="filter-box"
+                                        rows="3"
+                                        placeholder="write the conditions"
+                                    ></textarea>
+                                </div>
+                                <button
+                                    id="filter-button"
+                                    type="button"
+                                    class="btn btn-primary btn-block"
+                                >
+                                    Submit Filter
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <!-- <small style="color: dimgrey; text-align: right; width: 100%;"
         >Sadra Amlashi</small
       > -->
-    </div>
+        </div>
 
-    <script src="./js/channel.js" charset="utf-8"></script>
-  </body>
+        <script src="./js/channel.js" charset="utf-8"></script>
+    </body>
 </html>
