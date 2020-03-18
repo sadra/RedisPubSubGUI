@@ -1,6 +1,6 @@
 {
   "name": "redis-pub-sub-listener",
-  "version": "1.3.0",
+  "version": "1.5.0",
   "main": "index.js",
   "description": "A Redis PubSub Listener desktop app",
   "author": "Sadra Amlashi <amlashi.sadra@gmail.com>",
