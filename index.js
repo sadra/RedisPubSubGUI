@@ -9,34 +9,34 @@ const url = require('url');
 let window = null;
 
 app.once('ready', () => {
-  window = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    backgroundColor: '#D6D8DC',
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      nodeIntegrationInWorker: true,
-      webviewTag: true
-    },
-    icon: __dirname + '/icon.png'
-  });
+    window = new BrowserWindow({
+        width: 1000,
+        height: 600,
+        backgroundColor: '#D6D8DC',
+        show: false,
+        webPreferences: {
+            nodeIntegration: true,
+            nodeIntegrationInWorker: true,
+            webviewTag: true
+        },
+        icon: __dirname + '/icon.png'
+    });
 
-  window.loadURL(
-    url.format({
-      pathname: path.join(__dirname, 'app.html'),
-      protocol: 'file:',
-      slashes: true
-    })
-  );
+    window.loadURL(
+        url.format({
+            pathname: path.join(__dirname, 'channel.html'),
+            protocol: 'file:',
+            slashes: true
+        })
+    );
 
-  const iconUrl = url.format({
-    pathname: path.join(__dirname, '/icon.png'),
-    protocol: 'file:',
-    slashes: true
-  });
+    const iconUrl = url.format({
+        pathname: path.join(__dirname, '/icon.png'),
+        protocol: 'file:',
+        slashes: true
+    });
 
-  window.once('ready-to-show', () => {
-    window.show();
-  });
+    window.once('ready-to-show', () => {
+        window.show();
+    });
 });

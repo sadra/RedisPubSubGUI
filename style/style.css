@@ -2,95 +2,129 @@ html,
 body,
 .container-fluid,
 .container {
-  background-color: #ffffff;
-  padding: 12px;
-  height: 100%;
+    background-color: #ffffff;
+    padding: 12px;
+    height: 100%;
 }
 
 .text-input {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .scrollbar-row {
-  height: 95% !important;
+    height: 100% !important;
 }
 
 .scrollbar-col {
-  height: 95% !important;
+    height: 100% !important;
 }
 
 #scrollArea {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .scroller-box {
-  padding: 5px 5px;
-  border: grey 1px solid;
-  border-radius: 5px;
-  background-color: whitesmoke;
-  letter-spacing: 1px;
+    padding: 5px 5px;
+    border: grey 1px solid;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    letter-spacing: 1px;
 }
 
 .btn-group,
 .btn-group-vertical {
-  vertical-align: top !important;
+    vertical-align: top !important;
 }
 
 .clusterize-scroll {
-  max-height: none !important;
-  height: 95% !important;
+    max-height: none !important;
+    height: 95% !important;
 }
 
 .hash-output ul {
-  overflow: auto;
-  padding: 5px 20px;
+    overflow: auto;
+    padding: 5px 20px;
 }
 
 .hash-heading {
-  color: gray;
-  font-weight: normal;
+    color: gray;
+    font-weight: normal;
 }
 
 .counter-box {
-  padding: 5px;
+    padding: 5px;
 }
 
 .alert {
-  padding: 5px 10px;
-  display: inline-block !important;
+    padding: 5px 10px;
+    display: inline-block !important;
 }
 
 li {
-  list-style-type: none;
-  margin-bottom: 5px;
-  padding: 5px;
-  border-bottom: lightgrey 1px solid;
+    list-style-type: none;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: lightgrey 1px solid;
 }
 
 pre {
-  width: 90%;
+    width: 90%;
 }
 
 a {
-  color: black !important;
+    color: black !important;
 }
 
 .string {
-  color: green;
+    color: green;
 }
 
 .number {
-  color: darkorange;
+    color: darkorange;
 }
 
 .boolean {
-  color: blue;
+    color: blue;
 }
 
 .null {
-  color: magenta;
+    color: magenta;
 }
 
 .key {
-  color: red;
+    color: red;
+}
+
+hr.dashed {
+    border-top: 2px dashed #999;
+}
+
+hr.dotted {
+    border-top: 2px dotted #999;
+}
+
+hr.solid {
+    border-top: 2px solid #999;
+}
+
+hr.hr-text {
+    position: relative;
+    border: none;
+    height: 1px;
+    background: #999;
+}
+
+hr.hr-text::before {
+    content: attr(data-content);
+    display: inline-block;
+    background: #fff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #999;
+    border-radius: 30rem;
+    padding: 0.2rem 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
