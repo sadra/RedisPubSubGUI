@@ -5,10 +5,12 @@ const Clusterize = require('clusterize.js');
 var tabId;
 var tabSessionId;
 var timeout;
+var limitInputTimeout;
 
 var channelName = '';
 var scroll = true;
 var fontSize = 12;
+var dataLimitSize = 500;
 
 var channelCount = 0;
 var subscriber;
@@ -69,17 +71,26 @@ $(document).ready(function() {
     function hanndleMessage(channel, message, count) {
         if (getChannelName()) {
             var obj = JSON.parse(message);
+
             data.push(obj);
+            if (data.length >= dataLimitSize) {
+                shitArray();
+                reformatClusterize();
+            }
 
             if (filterIsOn && !isCorrectObject(obj)) {
                 return;
             }
 
-            clusterize.append([
-                `<div><pre>${syntaxHighlight(
-                    JSON.stringify(obj, null, 4)
-                )}</pre></div>`
-            ]);
+            if (data.length >= dataLimitSize) {
+                reformatClusterize();
+            } else {
+                clusterize.append([
+                    `<div><pre>${syntaxHighlight(
+                        JSON.stringify(obj, null, 4)
+                    )}</pre></div>`
+                ]);
+            }
 
             if (scroll) {
                 const elm = document.getElementById('scrollArea');
@@ -146,20 +157,31 @@ $(document).ready(function() {
                 tabSessionId: tabSessionId,
                 title: getChannelName()
             });
-        }, 1000);
+        }, 500);
     });
 
     $('#filter-button').click(function() {
-        rawConditionValue = $('#filter-box').val();
-        var filteredObj = filterData(getRowCondition(), data);
-        filteredObj = filteredObj.map((item) => {
-            return `<div><pre>${syntaxHighlight(
-                JSON.stringify(item, null, 4)
-            )}</pre></div>`;
-        });
-        clusterize.clear();
-        clusterize.append(filteredObj);
+        reformatClusterize();
         filterIsOn = true;
+    });
+
+    $('#decrease-limit-button').click(function() {
+        const limit = parseInt($('#limit-input').val());
+        dataLimitSize = limit - 25 <= 0 ? 0 : limit - 25;
+        $('#limit-input').val(dataLimitSize);
+    });
+
+    $('#increase-limit-button').click(function() {
+        const limit = parseInt($('#limit-input').val());
+        dataLimitSize = limit + 25;
+        $('#limit-input').val(dataLimitSize);
+    });
+
+    $('#limit-input').keyup(function() {
+        clearTimeout(limitInputTimeout);
+        limitInputTimeout = setTimeout(() => {
+            dataLimitSize = parseInt($('#limit-input').val());
+        }, 500);
     });
 
     // 2.) listen for a message from the parent (paremt-main.html)
@@ -254,12 +276,26 @@ function filterArray(array, filters) {
 
 function isCorrectObject(object) {
     const arrayObj = [object];
-    console.log(arrayObj);
-
     const filtered = filterData(getRowCondition(), arrayObj);
     return filtered.length > 0;
 }
 
 function getRowCondition() {
     return rawConditionValue;
+}
+
+function reformatClusterize() {
+    rawConditionValue = $('#filter-box').val();
+    var filteredObj = filterData(getRowCondition(), data);
+    filteredObj = filteredObj.map((item) => {
+        return `<div><pre>${syntaxHighlight(
+            JSON.stringify(item, null, 4)
+        )}</pre></div>`;
+    });
+    clusterize.update(filteredObj);
+}
+
+function shitArray() {
+    const shiftValue = data.length - dataLimitSize;
+    data.splice(0, shiftValue);
 }
