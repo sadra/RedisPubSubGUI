@@ -243,7 +243,7 @@ $(document).ready(function() {
     sendChannelNameToParent();
   });
 
-  //   publish();
+  // publish();
 });
 
 function showNotification(title, message) {
@@ -308,12 +308,37 @@ function publish() {
   var counterA = 0;
   setInterval(() => {
     counterA++;
-    publisher.publish(
-      'info',
-      `{"id":${counterA}, "count" : ${
-        counterA % 2 === 0 ? 1 : 2
-      }, "size" : "one"}`
-    );
+    const prod = [
+      {
+        name: 'A',
+        color: 'Blue',
+        size: 50,
+        locations: ['USA', 'Europe'],
+        details: { length: 20, width: 70 }
+      },
+      {
+        name: 'B',
+        color: 'Blue',
+        size: 60,
+        locations: [],
+        details: { length: 20, width: 70 }
+      },
+      {
+        name: 'C',
+        color: 'Black',
+        size: 70,
+        locations: ['Japan'],
+        details: { length: 20, width: 71 }
+      },
+      {
+        name: 'D',
+        color: 'Green',
+        size: 50,
+        locations: ['USA'],
+        details: { length: 20, width: 71 }
+      }
+    ];
+    publisher.publish('info', JSON.stringify(prod));
   }, 1000);
 }
 
