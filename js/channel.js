@@ -5,6 +5,7 @@ const RedisSSH = require('redis-ssh');
 const fs = require('fs');
 const path = require('path');
 const notifier = require('node-notifier');
+const settings = require('electron-settings');
 
 var tabId;
 var tabSessionId;
@@ -217,15 +218,13 @@ $(document).ready(function() {
       filter: $('#filter-box').val()
     };
 
-    let data = JSON.stringify(save);
-    await fs.writeFileSync(__dirname + '/store/last-save.json', data);
+    settings.set('settings', save);
 
     showNotification('Setting', 'Saved successfully.');
   });
 
   $('#load-button').click(async function() {
-    let rawdata = fs.readFileSync(__dirname + '/store/last-save.json');
-    let save = JSON.parse(rawdata);
+    let save = settings.get('settings');
 
     $('#host-input').val(save.host);
     $('#port-input').val(save.port);
