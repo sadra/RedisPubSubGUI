@@ -16,14 +16,15 @@ app.once('ready', () => {
     show: false,
     webPreferences: {
       nodeIntegration: true,
-      nodeIntegrationInWorker: true
+      nodeIntegrationInWorker: true,
+      webviewTag: true
     },
     icon: __dirname + '/icon.png'
   });
 
   window.loadURL(
     url.format({
-      pathname: path.join(__dirname, 'index.html'),
+      pathname: path.join(__dirname, 'app.html'),
       protocol: 'file:',
       slashes: true
     })

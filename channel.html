@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style/style.css" />
     <link rel="stylesheet" href="./style/clusterize.css" />
     <script src="./js/clusterize.min.js" charset="utf-8"></script>
 
@@ -97,81 +97,49 @@
         </div>
       </form>
 
-      <div class="row">
-        <div class="col-6">
-          <form>
-            <div class="form-row">
-              <div class="col-5">
-                <input
-                  id="first-channel-input"
-                  type="text"
-                  class="form-control"
-                  placeholder="default channel: info"
-                />
-              </div>
-              <div class="col-5">
-                <div
-                  id="first-channel-counter"
-                  class="alert alert-secondary counter-box"
-                  role="alert"
-                >
-                  0
-                </div>
-              </div>
-
-              <div class="col-2">
-                <button
-                  id="watch-first-button"
-                  type="button"
-                  class="btn btn-success mb-2"
-                >
-                  👁️
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <div id="scrollAreaFirst" class="clusterize-scroll scroller-box">
-            <div id="contentAreaFirst" class="clusterize-content">
+      <div class="row scrollbar-row">
+        <div class="col-8 scrollbar-col">
+          <div id="scrollArea" class="clusterize-scroll scroller-box">
+            <div id="contentArea" class="clusterize-content">
               <div class="clusterize-no-data">Loading data…</div>
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <form>
-            <div class="form-row">
-              <div class="col-5">
-                <input
-                  id="second-channel-input"
-                  type="text"
-                  class="form-control"
-                  placeholder="default channel: error"
-                />
-              </div>
-              <div class="col-5">
-                <div
-                  id="second-channel-counter"
-                  class="alert alert-secondary counter-box"
-                  role="alert"
-                >
-                  0
+        <div class="col-4">
+          <div class="row">
+            <div class="col">
+              <form>
+                <div class="form-row">
+                  <div class="col">
+                    <input
+                      id="channel-input"
+                      type="text"
+                      class="form-control"
+                      placeholder="default: info"
+                    />
+                  </div>
+                  <div class="col">
+                    <div
+                      id="channel-counter"
+                      class="alert alert-secondary counter-box"
+                      role="alert"
+                    >
+                      0
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-2">
-                <button
-                  id="watch-second-button"
-                  type="button"
-                  class="btn btn-success mb-2"
-                >
-                  👁️
-                </button>
-              </div>
+              </form>
             </div>
-          </form>
-
-          <div id="scrollAreaSecond" class="clusterize-scroll scroller-box">
-            <div id="contentAreaSecond" class="clusterize-content">
-              <div class="clusterize-no-data">Loading data…</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button
+                id="watch-button"
+                type="button"
+                class="btn btn-success mb-2"
+              >
+                👁️
+              </button>
             </div>
           </div>
         </div>
@@ -183,6 +151,6 @@
       > -->
     </div>
 
-    <script src="./window.js" charset="utf-8"></script>
+    <script src="./js/channel.js" charset="utf-8"></script>
   </body>
 </html>
