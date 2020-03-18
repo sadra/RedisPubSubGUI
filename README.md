@@ -2,6 +2,12 @@
 
 ![Redi Pub/Sub GUI](./screenshot.png 'Redi Pub/Sub GUI')
 
+## Taps
+
+For each channel you can open a new tab and set settings only for that channel.
+
+**If the `channel input` box didn't active, just close tab and open another one. _(we are worikng on to fix it)_**
+
 ## Top Bar
 
 Just write the redis enter the `host` and `port` or just leave it with the defaults. after that you can click on `Start` button to listen and recieve the message on default channels.
