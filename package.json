@@ -8,7 +8,9 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "dist:all": "electron-builder -mwl"
+    "dist:win": "electron-builder -w",
+    "dist:linux": "electron-builder -l",
+    "dist:mac": "electron-builder -m"
   },
   "build": {
     "appId": "xyz.ideh.redi-listener",
