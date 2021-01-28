@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "asar": "^2.0.1",
-    "electron": "^7.1.3",
+    "electron": "^9.4.0",
     "electron-builder": "^21.2.0",
     "electron-installer-windows": "^2.0.0",
     "electron-packager": "^14.2.1"
