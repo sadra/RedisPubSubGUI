@@ -29,7 +29,7 @@
     "node-notifier": "^6.0.0",
     "redis": "^3.0.2",
     "redis-ssh": "^1.0.0",
-    "ssh2": "^0.8.9"
+    "ssh2": "^1.4.0"
   },
   "devDependencies": {
     "asar": "^2.0.1",
